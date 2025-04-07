@@ -2,17 +2,21 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {Counter} from "../src/Counter.sol";
+import {Escrow} from "../src/Escrow.sol";
+import {RealEstate} from "../src/RealEstate.sol";
+
 
 contract CounterScript is Script {
-    Counter public counter;
+   Escrow public escrow;
+   RealEstate public realEstate;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
 
-        counter = new Counter();
+        realEstate = new RealEstate();
+        escrow = new Escrow(address(realEstate), msg.sender, msg.sender, msg.sender);
 
         vm.stopBroadcast();
     }
